@@ -1,0 +1,13 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^2.0.18",
+    "redis": "^4.1.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
+}

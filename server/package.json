@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "dev": "nodemon index.ts --exec ts-node | pino-pretty"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "fastify": "^4.1.0",
+    "nodemon": "^2.0.18",
+    "pg": "^8.7.3",
+    "redis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/pg": "^8.6.5"
+  }
+}

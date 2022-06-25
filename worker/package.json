@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "nodemon --exec ts-node"
+    "dev": "nodemon index.ts --exec ts-node"
   },
   "devDependencies": {
     "@types/node": "^18.0.0"

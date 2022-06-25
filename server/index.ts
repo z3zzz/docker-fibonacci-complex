@@ -72,8 +72,9 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
           type: 'array',
           items: {
             type: 'object',
-            patternProperties: {
-              '[0-9]+': { type: 'integer' },
+            properties: {
+              key: { type: 'string' },
+              value: { type: 'number' },
             },
           },
         },
@@ -88,7 +89,7 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
       const values = [];
 
       for (const [key, value] of Object.entries(keyValueMap)) {
-        values.push({ [key]: parseInt(value) });
+        values.push({ key, value: parseInt(value) });
       }
 
       return values;

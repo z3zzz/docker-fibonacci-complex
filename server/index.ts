@@ -40,15 +40,40 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
     return { greeting: 'Hi! It works!' };
   });
 
-  opts['va'] = {
+  opts['i'] = {
+    schema: {
+      response: {
+        200: {
+          type: 'array',
+          items: {
+            type: 'integer',
+          },
+        },
+      },
+    },
+  };
+
+  app.get('/indexes', opts['i'], async (req, res) => {
+    try {
+      const { rows } = await psql.query('SELECT * from values');
+
+      const values = rows.map(({ number }) => number);
+
+      return values;
+    } catch (err: any) {
+      throw err;
+    }
+  });
+
+  opts['gv'] = {
     schema: {
       response: {
         200: {
           type: 'array',
           items: {
             type: 'object',
-            properties: {
-              number: { type: 'number' },
+            patternProperties: {
+              '[0-9]+': { type: 'integer' },
             },
           },
         },
@@ -56,33 +81,15 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
     },
   };
 
-  app.get('/values/all', opts['va'], async (req, res) => {
+  app.get('/values', opts['gv'], async (req, res) => {
     try {
-      const { rows: values } = await psql.query('SELECT * from values');
+      const keyValueMap = await redis.hGetAll('values');
 
-      console.log({ values });
-      return values;
-    } catch (err: any) {
-      throw err;
-    }
-  });
+      const values = [];
 
-  opts['vc'] = {
-    schema: {
-      response: {
-        200: {
-          type: 'object',
-          patternProperties: {
-            '[0-9]+': { type: 'string' },
-          },
-        },
-      },
-    },
-  };
-
-  app.get('/values/current', opts['vc'], async (req, res) => {
-    try {
-      const values = await redis.hGetAll('values');
+      for (const [key, value] of Object.entries(keyValueMap)) {
+        values.push({ [key]: parseInt(value) });
+      }
 
       return values;
     } catch (err: any) {
@@ -90,7 +97,7 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
     }
   });
 
-  opts['v'] = {
+  opts['pv'] = {
     schema: {
       body: {
         type: 'object',
@@ -115,7 +122,7 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
     };
   }
 
-  app.post<reqType>('/values', opts['v'], async (req, res) => {
+  app.post<reqType>('/values', opts['pv'], async (req, res) => {
     const index = req.body.index;
 
     if (index > 40) {

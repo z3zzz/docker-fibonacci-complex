@@ -1,1 +1,18 @@
 /* css */
+.other-columns {
+  display: flex;
+  width: 1080px;
+}
+
+.other-column-link {
+  flex: none;
+  width: 30%;
+}
+
+.other-column-main {
+  flex: none;
+  width: 70%;
+}
+.other-column-main h1 {
+  margin-top: 0;
+}

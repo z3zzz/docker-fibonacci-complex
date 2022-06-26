@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import * as Api from '../../utils/api';
 import './fib.css';
 
@@ -43,22 +44,27 @@ const Fib: React.FC = () => {
   }, [flag]);
 
   return (
-    <div>
-      <form>
-        <label>Enter your index: </label>
-        <input value={index} onChange={(e) => setIndex(e.target.value)} />
-        <button onClick={onClick}>Submit</button>
-      </form>
+    <div className="fib-columns">
+      <div className="fib-column-link">
+        <Link to="/other">Go to other page</Link>
+      </div>
+      <div className="fib-column-main">
+        <form>
+          <label>Enter your index: </label>
+          <input value={index} onChange={(e) => setIndex(e.target.value)} />
+          <button onClick={onClick}>Submit</button>
+        </form>
 
-      <h3>Indexes you have seen: </h3>
-      <p>{searchedIndexes.map((number) => number).join(', ')}</p>
+        <h3>Indexes you have seen: </h3>
+        <p>{searchedIndexes.map((number) => number).join(', ')}</p>
 
-      <h3>Caculated Values: </h3>
-      {searchedKeyValues.map(({ key, value }) => (
-        <div key={key}>
-          For index {key} the fibonacci number is {value}
-        </div>
-      ))}
+        <h3>Caculated Values: </h3>
+        {searchedKeyValues.map(({ key, value }) => (
+          <div key={key}>
+            For index {key} the fibonacci number is {value}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -6,3 +6,18 @@ input {
 button {
   font-size: 1em;
 }
+
+.fib-columns {
+  display: flex;
+  width: 1080px;
+}
+
+.fib-column-link {
+  flex: none;
+  width: 30%;
+}
+
+.fib-column-main {
+  flex: none;
+  width: 70%;
+}

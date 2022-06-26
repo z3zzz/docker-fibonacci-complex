@@ -3,13 +3,15 @@ import Fastify, {
   FastifyPluginOptions,
   RouteShorthandOptions,
 } from 'fastify';
+import cors from '@fastify/cors';
 import { startPsql, startRedis } from './database';
 
 const app = Fastify({
   logger: true,
 });
 
-app.register(routes);
+app.register(cors, { origin: 'http://localhost:3000' });
+app.register(routes, { prefix: '/api' });
 
 app.listen({ port: 5000, host: '0.0.0.0' }, (err, url) => {
   if (err) {
@@ -89,7 +91,12 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
       const values = [];
 
       for (const [key, value] of Object.entries(keyValueMap)) {
-        values.push({ key, value: parseInt(value) });
+        const valueNumber = parseInt(value);
+        const isNan = Number.isNaN(valueNumber);
+
+        if (!isNan) {
+          values.push({ key, value: valueNumber });
+        }
       }
 
       return values;
@@ -131,8 +138,9 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
       throw new Error('Index too high, should be lower than 40');
     }
 
-    redis.hSet('values', index, 'Nothing yet!');
-    publisher.publish('insert', `${index}`);
+    await redis.hSet('values', index, 'Nothing yet!');
+
+    await publisher.sendCommand(['publish', 'insert', `${index}`]);
 
     await psql.query(`INSERT INTO values (number) VALUES (${index})`);
 

@@ -5,14 +5,6 @@ import 'dotenv/config';
 async function startRedis() {
   const [client, publisher] = await createRedisConnection();
 
-  publisher.subscribe('insert', (message, channel) => {
-    const index = parseInt(message);
-    const fibResult = fibonacci(index);
-
-    client.hSet('values', index, fibResult);
-    console.log(`Values added: ${index} -> ${fibResult}`);
-  });
-
   return [client, publisher];
 }
 

@@ -19,9 +19,9 @@ services:
     container_name: server
     build: 
       context: ./server
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     ports:
-      - "5000:5000"
+      - 5000:5000
     environment:
       - REDIS_URL=redis://redis
       - PSQL_URL=postgresql://postgres:1234@postgres:5432/postgres
@@ -29,7 +29,13 @@ services:
     container_name: worker
     build: 
       context: ./worker
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     environment:
       - REDIS_URL=redis://redis
-
+  web:
+    container_name: web
+    build: 
+      context: ./web
+      dockerfile: Dockerfile.prod
+    ports:
+      - 80:80

@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
+    "esbuild": "^0.14.47",
     "nodemon": "^2.0.18",
     "redis": "^4.1.0",
     "ts-node": "^10.8.1",
@@ -12,7 +13,8 @@
   },
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "nodemon index.ts --exec ts-node"
+    "dev": "nodemon index.ts --exec ts-node",
+    "build": "esbuild index.ts --bundle --platform=node --outfile=worker.bundle.js"
   },
   "devDependencies": {
     "@types/node": "^18.0.0"

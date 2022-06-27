@@ -5,12 +5,14 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "nodemon index.ts --exec ts-node | pino-pretty"
+    "dev": "nodemon index.ts --exec ts-node | pino-pretty",
+    "build": "esbuild index.ts --bundle --platform=node --external:pg-native --outfile=server.bundle.js"
   },
   "dependencies": {
     "@fastify/cors": "^8.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
+    "esbuild": "^0.14.47",
     "fastify": "^4.1.0",
     "nodemon": "^2.0.18",
     "pg": "^8.7.3",

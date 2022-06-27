@@ -10,7 +10,7 @@ const app = Fastify({
   logger: true,
 });
 
-app.register(cors, { origin: 'http://localhost:3000' });
+app.register(cors, { origin: ['http://localhost:3000', /ec2-52-79-62-94\.ap-northeast-2/] });
 app.register(routes, { prefix: '/api' });
 
 app.listen({ port: 5000, host: '0.0.0.0' }, (err, url) => {

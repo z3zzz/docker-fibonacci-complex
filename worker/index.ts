@@ -16,14 +16,19 @@ async function startRedis() {
 }
 
 async function createRedisConnection() {
+  const url = process.env.REDIS_URL || 'redis://localhost/'
   const client = createClient({
-    url: process.env.REDIS_URL || 'redis://localhost/',
+    url,
     socket: {
       reconnectStrategy: () => 1000,
     },
   });
 
   client.on('error', (err) => console.log('Redis Client Error', err));
+  client.on('connect', () =>
+    console.log('Successfully connected Redis: ', url)
+  );
+
   await client.connect();
 
   const subscriber = client.duplicate();

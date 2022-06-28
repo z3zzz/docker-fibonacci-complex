@@ -57,13 +57,18 @@ async function createPsqlConnection() {
     connectionString: url,
   });
 
-  pool.connect((err: Error) => {
-    if (err) {
-      console.log('Error on connecting PSQL: ', err.stack);
-    } else {
+  while (true) {
+    try {
+      await pool.connect();
       console.log('Successfully connected on PSQL: ', url);
+
+      break;
+    } catch (err: any) {
+      console.log('Error on connecting PSQL: ', err.stack);
+
+      await new Promise((r) => setTimeout(r, 1000));
     }
-  });
+  }
 
   return pool;
 }

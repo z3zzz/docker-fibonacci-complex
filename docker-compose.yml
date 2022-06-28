@@ -1,4 +1,15 @@
 services:
+  nginx:
+    container_name: nginx
+    restart: always
+    depends_on:
+      - web
+      - api
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 80:80
   postgres:
     container_name: postgres
     image: postgres:14
@@ -17,16 +28,21 @@ services:
       - 6379
   api:
     container_name: api
+    depends_on:
+      - postgres
+      - redis
     build: 
       context: ./api
       dockerfile: Dockerfile.prod
-    ports:
-      - 5000:5000
+    expose:
+      - 5000
     environment:
       - REDIS_URL=redis://redis
       - PSQL_URL=postgresql://postgres:1234@postgres:5432/postgres
   worker:
     container_name: worker
+    depends_on:
+      - redis
     build: 
       context: ./worker
       dockerfile: Dockerfile.prod
@@ -37,5 +53,5 @@ services:
     build: 
       context: ./web
       dockerfile: Dockerfile.prod
-    ports:
-      - 80:80
+    expose:
+      - 3000

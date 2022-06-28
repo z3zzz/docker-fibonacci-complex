@@ -15,10 +15,10 @@ services:
     restart: always
     expose:
       - 6379
-  server:
-    container_name: server
+  api:
+    container_name: api
     build: 
-      context: ./server
+      context: ./api
       dockerfile: Dockerfile.prod
     ports:
       - 5000:5000

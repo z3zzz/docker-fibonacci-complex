@@ -15,10 +15,10 @@ services:
     restart: always
     expose:
       - 6379
-  server:
-    container_name: server
+  api:
+    container_name: api
     build: 
-      context: ./server
+      context: ./api
       dockerfile: Dockerfile.dev
     ports:
       - 5000:5000
@@ -27,7 +27,7 @@ services:
       - PSQL_URL=postgresql://postgres:1234@postgres:5432/postgres
     volumes:
       - /app/node_modules
-      - ./server:/app
+      - ./api:/app
   worker:
     container_name: worker
     build: 

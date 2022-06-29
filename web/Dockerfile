@@ -1,5 +1,3 @@
-## Due to lack of memory, but want to see if docker-compose works, use this temp file
-
 # everything below this line is builder phase
 FROM node:16-alpine as builder
 
@@ -19,4 +17,3 @@ COPY --from=builder /app/build /app/build
 RUN npm install serve
 
 CMD ["npm", "exec", "serve", "-s", "build"]
-

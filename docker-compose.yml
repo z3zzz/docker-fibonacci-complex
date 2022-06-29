@@ -7,7 +7,7 @@ services:
       - api
     build:
       context: ./nginx
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - 80:80
   postgres:
@@ -33,7 +33,7 @@ services:
       - redis
     build: 
       context: ./api
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     expose:
       - 5000
     environment:
@@ -45,13 +45,13 @@ services:
       - redis
     build: 
       context: ./worker
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     environment:
       - REDIS_URL=redis://redis
   web:
     container_name: web
     build: 
       context: ./web
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     expose:
       - 3000

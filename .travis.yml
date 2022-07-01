@@ -4,8 +4,8 @@ services:
 
 before_install: 
   - docker build -f ./web/Dockerfile.dev -t kwangduck/docker-fibonacci-complex-react-test ./web
-  - docker build -e POSTGRES_USER=postgres POSTGRES_PASSWORD=1234 POSTGRES_DB=postgres postgres:14
-  - docker build redis:7  
+  - docker run -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=postgres postgres:14
+  - docker run redis:7  
       
 
 script:

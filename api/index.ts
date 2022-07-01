@@ -10,7 +10,9 @@ const app = Fastify({
   logger: true,
 });
 
-app.register(cors, { origin: ['http://localhost:3000', /ec2-52-79-62-94\.ap-northeast-2/] });
+app.register(cors, {
+  origin: ['http://localhost:3000', /ec2-52-79-62-94\.ap-northeast-2/],
+});
 app.register(routes);
 
 app.listen({ port: 5000, host: '0.0.0.0' }, (err, url) => {
@@ -75,7 +77,7 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
           items: {
             type: 'object',
             properties: {
-              key: { type: 'string' },
+              index: { type: 'string' },
               value: { type: 'number' },
             },
           },
@@ -95,7 +97,7 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
         const isNan = Number.isNaN(valueNumber);
 
         if (!isNan) {
-          values.push({ key, value: valueNumber });
+          values.push({ index: key, value: valueNumber });
         }
       }
 

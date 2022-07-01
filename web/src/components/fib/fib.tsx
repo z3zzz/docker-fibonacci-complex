@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import * as Api from '../../utils/api';
 import './fib.css';
 
-interface KeyValuePair {
-  key: string;
+interface IndexValuePair {
+  index: string;
   value: number;
 }
 
 const Fib: React.FC = () => {
   const [searchedIndexes, setSearchedIndexes] = useState<number[]>([]);
-  const [searchedKeyValues, setSearchedKeyValues] = useState<KeyValuePair[]>(
+  const [searchedKeyValues, setSearchedKeyValues] = useState<IndexValuePair[]>(
     []
   );
   const [index, setIndex] = useState('');
@@ -34,7 +34,7 @@ const Fib: React.FC = () => {
     }
 
     async function fetchKeyValues() {
-      const { data }: { data: KeyValuePair[] } = await Api.get('/api/values');
+      const { data }: { data: IndexValuePair[] } = await Api.get('/api/values');
 
       setSearchedKeyValues(data);
     }
@@ -59,9 +59,9 @@ const Fib: React.FC = () => {
         <p>{searchedIndexes.map((number) => number).join(', ')}</p>
 
         <h3>Caculated Values: </h3>
-        {searchedKeyValues.map(({ key, value }) => (
-          <div key={key}>
-            For index {key} the fibonacci number is {value}
+        {searchedKeyValues.map(({ index, value }) => (
+          <div key={index}>
+            For index {index} the fibonacci number is {value}
           </div>
         ))}
       </div>

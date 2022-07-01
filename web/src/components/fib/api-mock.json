@@ -1,0 +1,29 @@
+{
+  "get": {
+    "/api/values": [
+      { "index": "2", "value": 2 },
+      { "index": "4", "value": 5 },
+      { "index": "5", "value": 8 }
+    ],
+    "/api/indexes": [2, 4, 5]
+  },
+  "post": {
+    "/api/values": {
+      "response": { "working": true },
+      "updates": [
+        {
+          "data": { "index": 6 },
+          "afterPost": {
+            "/api/values": [
+              { "index": "2", "value": 2 },
+              { "index": "4", "value": 5 },
+              { "index": "5", "value": 8 },
+              { "index": "6", "value": 13 }
+            ],
+            "/api/indexes": [2, 4, 5, 6]
+          }
+        }
+      ]
+    }
+  }
+}

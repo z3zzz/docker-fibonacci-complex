@@ -5,8 +5,6 @@ services:
   - redis-server
 
 before_install: 
-  - psql -c 'CREATE DATABASE postgres;' -U postgres
-  - psql -c '\c postgres;' -U postgres
   - psql -c 'CREATE TABLE values (number INTEGER);' -U postgres
   - docker build -f ./api/Dockerfile -t kwangduck/docker-fibonacci-complex-api-test ./api
   - docker build -f ./web/Dockerfile.dev -t kwangduck/docker-fibonacci-complex-react-test ./web

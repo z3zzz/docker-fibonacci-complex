@@ -6,9 +6,8 @@ services:
 
 before_install: 
   - psql -c 'CREATE TABLE values (number INTEGER);' -U postgres
+  - psql -c 'ALTER USER postgres PASSWORD 1234;' -U postgres
   - docker build -f ./api/Dockerfile -t kwangduck/docker-fibonacci-complex-api-test ./api
-  - docker build -f ./web/Dockerfile.dev -t kwangduck/docker-fibonacci-complex-react-test ./web
-
       
 
 script:

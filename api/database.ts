@@ -64,7 +64,7 @@ async function createPsqlConnection() {
 
       break;
     } catch (err: any) {
-      console.log('Error on connecting PSQL: ', err.stack);
+      console.log('Error on connecting PSQL: ', url, err);
 
       await new Promise((r) => setTimeout(r, 1000));
     }

@@ -17,12 +17,8 @@ script:
   - docker run --network=host -t -v /app/node_modules -v $(pwd)/api:/app kwangdock/docker-fibonacci-complex-api-dev npm run test &&
     docker run -e CI=true -t -v /app/node_modules -v $(pwd)/web:/app kwangdock/docker-fibonacci-complex-web-dev npm run test
 
-after_success:
-  - docker build -t kwangdock/docker-fibonacci-complex-web ./web
-  - docker build -t kwangdock/docker-fibonacci-complex-api ./api
-  - docker build -t kwangdock/docker-fibonacci-complex-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push kwangdock/docker-fibonacci-complex-web 
-  - docker push kwangdock/docker-fibonacci-complex-api
-  - docker push kwangdock/docker-fibonacci-complex-worker
-
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  on:
+    branch: main

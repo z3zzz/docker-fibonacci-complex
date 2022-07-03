@@ -12,7 +12,7 @@ before_install:
   - docker pull kwangdock/docker-fibonacci-complex-web-dev 
       
 script:
-  - docker run --network=host -t kwangdock/docker-fibonacci-complex-api-dev npm run test &&
-    docker run -e CI=true -t kwangdock/docker-fibonacci-complex-web-dev npm run test
+  - docker run --network=host -t -v /app/node_modules -v ./api:/app kwangdock/docker-fibonacci-complex-api-dev npm run test &&
+    docker run -e CI=true -t -v /app/node_modules -v ./web:/app kwangdock/docker-fibonacci-complex-web-dev npm run test
 
 language: generic

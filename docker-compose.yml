@@ -1,39 +1,19 @@
 services:
   nginx:
     container_name: nginx
+    image: kwangdock/docker-fibonacci-complex-nginx
     restart: always
     depends_on:
       - web
       - api
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
     ports:
       - 80:80
-  postgres:
-    container_name: postgres
-    image: postgres:14
-    restart: always
-    expose: 
-      - 5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=postgres
-  redis:
-    container_name: redis
-    image: redis:7
-    restart: always
-    expose:
-      - 6379
   api:
     container_name: api
+    image: kwangdock/docker-fibonacci-complex-api
     depends_on:
       - postgres
       - redis
-    build: 
-      context: ./api
-      dockerfile: Dockerfile
     expose:
       - 5000
     environment:
@@ -41,17 +21,13 @@ services:
       - PSQL_URL=postgresql://postgres:1234@postgres:5432/postgres
   worker:
     container_name: worker
+    image: kwangdock/docker-fibonacci-complex-worker
     depends_on:
       - redis
-    build: 
-      context: ./worker
-      dockerfile: Dockerfile
     environment:
       - REDIS_URL=redis://redis
   web:
     container_name: web
-    build: 
-      context: ./web
-      dockerfile: Dockerfile
+    image: kwangdock/docker-fibonacci-complex-web
     expose:
       - 3000

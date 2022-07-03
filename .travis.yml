@@ -7,7 +7,7 @@ services:
 before_install: 
   - psql -c 'CREATE TABLE values (number INTEGER);' -U postgres
   - psql -c "ALTER USER postgres PASSWORD '1234';" -U postgres
-  - redis-cli "HSET values 5 8"
+  - redis-cli HSET values 5 8
   - docker build -f ./api/Dockerfile.dev -t kwangduck/docker-fibonacci-complex-api-test ./api
       
 

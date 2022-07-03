@@ -57,4 +57,8 @@ describe('api server test', () => {
     expect(res.statusCode).toBe(200);
     expect(body).toEqual(expectedArray);
   });
+
+  it("temporary fail test", () => {
+    expect(1).toBe(2)
+  }) 
 });

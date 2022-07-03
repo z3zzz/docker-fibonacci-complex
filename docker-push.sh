@@ -1,5 +1,5 @@
 # docker authenticate
-docker login -u "$DOCKER_USERNAME" --password-stdin &&
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
 
 # build and push web
 docker build -t kwangdock/docker-fibonacci-complex-web ./web && 

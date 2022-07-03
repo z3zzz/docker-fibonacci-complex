@@ -10,9 +10,9 @@ before_install:
   - redis-cli HSET values 5 8
   - docker pull kwangdock/docker-fibonacci-complex-api-dev 
   - docker pull kwangdock/docker-fibonacci-complex-web-dev 
-  - pwd
 
 script:
+  - pwd
   - docker run --network=host -t -v /app/node_modules -v api:/app kwangdock/docker-fibonacci-complex-api-dev npm run test &&
     docker run -e CI=true -t -v /app/node_modules -v web:/app kwangdock/docker-fibonacci-complex-web-dev npm run test
 

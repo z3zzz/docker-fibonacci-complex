@@ -19,6 +19,6 @@ script:
 
 deploy:
   provider: script
-  script: pwd &  bash docker_push.sh
+  script: bash docker-push.sh
   on:
     branch: main

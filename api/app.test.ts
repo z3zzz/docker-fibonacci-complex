@@ -6,7 +6,7 @@ describe('api server test', () => {
     await closeRedisConnection();
   });
 
-  it('Get /', async () => {
+  it('Get / - sends greeting message in json', async () => {
     const res = await app.inject({
       method: 'GET',
       url: '/',
@@ -18,7 +18,7 @@ describe('api server test', () => {
     expect(body.greeting).toMatch(/Hi! It works!/i);
   });
 
-  it('POST /values', async () => {
+  it('POST /values - sends {working: true} in json', async () => {
     const res = await app.inject({
       method: 'POST',
       url: '/values',
@@ -31,7 +31,7 @@ describe('api server test', () => {
     expect(body.working).toBe(true);
   });
 
-  it('GET /values', async () => {
+  it('GET /values - sends [{index: "5", value: 8}] in json array', async () => {
     const res = await app.inject({
       method: 'GET',
       url: '/values',
@@ -45,7 +45,7 @@ describe('api server test', () => {
     expect(body).toEqual(expectedArray);
   });
 
-  it('GET /indexes', async () => {
+  it('GET /indexes - sends [5] in json array', async () => {
     const res = await app.inject({
       method: 'GET',
       url: '/indexes',

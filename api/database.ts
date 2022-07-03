@@ -2,8 +2,14 @@ import { createClient } from 'redis';
 import { Pool } from 'pg';
 import 'dotenv/config';
 
-async function startRedis() {
+let _redisClient: any;
+let _redisPublisher: any;
+
+export async function startRedis() {
   const [client, publisher] = await createRedisConnection();
+
+  _redisClient = client;
+  _redisPublisher = publisher;
 
   return [client, publisher];
 }
@@ -34,8 +40,14 @@ async function createRedisConnection() {
   return [client, duplicateClient];
 }
 
-async function startPsql() {
+export async function closeRedisConnection() {
+  await _redisClient.quit();
+  await _redisPublisher.quit();
+}
+
+export async function startPsql() {
   const pool = await createPsqlConnection();
+
   const query = 'CREATE TABLE IF NOT EXISTS values (number INT)';
 
   try {
@@ -77,5 +89,3 @@ function fibonacci(index: number): number {
   if (index < 2) return 1;
   return fibonacci(index - 1) + fibonacci(index - 2);
 }
-
-export { startPsql, startRedis };

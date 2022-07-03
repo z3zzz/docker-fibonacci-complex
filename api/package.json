@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node index.ts",
     "dev": "nodemon index.ts --exec ts-node | pino-pretty",
-    "build": "esbuild index.ts --bundle --platform=node --external:pg-native --outfile=server.bundle.js"
+    "build": "esbuild index.ts --bundle --platform=node --external:pg-native --outfile=server.bundle.js",
+    "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "@fastify/cors": "^8.0.0",
@@ -17,12 +18,17 @@
     "nodemon": "^2.0.18",
     "pg": "^8.7.3",
     "pino-pretty": "^8.1.0",
-    "redis": "^4.1.0",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.7.4"
+    "redis": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/jest": "^28.1.4",
     "@types/node": "^18.0.0",
-    "@types/pg": "^8.6.5"
+    "@types/pg": "^8.6.5",
+    "jest": "^28.1.2",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   }
 }

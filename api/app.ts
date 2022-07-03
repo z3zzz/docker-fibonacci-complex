@@ -133,8 +133,6 @@ async function routes(app: FastifyInstance, options: FastifyPluginOptions) {
       throw new Error('Index too high, should be lower than 40');
     }
 
-    await redis.hSet('values', index, 'Nothing yet!');
-
     await publisher.sendCommand(['publish', 'insert', `${index}`]);
 
     await psql.query(`INSERT INTO values (number) VALUES (${index})`);

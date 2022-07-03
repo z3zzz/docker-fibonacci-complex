@@ -13,6 +13,6 @@ before_install:
       
 script:
   - docker run --network=host -t kwangdock/docker-fibonacci-complex-api-dev npm run test && \
-    docker run -e CI=true -t kwangdock/docker-fibonacci-complex-react-test npm run test
+  docker run -e CI=true -t kwangdock/docker-fibonacci-complex-react-test npm run test
 
 language: generic

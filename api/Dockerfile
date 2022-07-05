@@ -1,5 +1,5 @@
-# everything below this line is builder phase
-FROM node:16-alpine as builder
+# builder name not supported in Elastic Beanstalk -> So use 0 phase (default name for phase)
+FROM node:16-alpine 
 
 WORKDIR /app
 COPY package.json . 
@@ -9,8 +9,8 @@ COPY . .
 
 RUN npm run build
 
-# dispose all files created in above builder phase, except bundle.js file.
+# dispose all files created in above 0 phase, except bundle.js file.
 FROM node:16-alpine
 WORKDIR /app
-COPY --from=builder /app/server.bundle.js .
+COPY --from=0 /app/server.bundle.js .
 CMD ["node", "server.bundle.js"]

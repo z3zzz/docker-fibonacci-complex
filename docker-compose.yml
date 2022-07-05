@@ -11,16 +11,11 @@ services:
   api:
     container_name: api
     image: kwangdock/docker-fibonacci-complex-api
-    depends_on:
-      - postgres
-      - redis
     expose:
       - 5000
   worker:
     container_name: worker
     image: kwangdock/docker-fibonacci-complex-worker
-    depends_on:
-      - redis
   web:
     container_name: web
     image: kwangdock/docker-fibonacci-complex-web

@@ -16,16 +16,11 @@ services:
       - redis
     expose:
       - 5000
-    environment:
-      - REDIS_URL=redis://redis
-      - PSQL_URL=postgresql://postgres:1234@postgres:5432/postgres
   worker:
     container_name: worker
     image: kwangdock/docker-fibonacci-complex-worker
     depends_on:
       - redis
-    environment:
-      - REDIS_URL=redis://redis
   web:
     container_name: web
     image: kwangdock/docker-fibonacci-complex-web

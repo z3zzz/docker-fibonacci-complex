@@ -18,7 +18,15 @@ script:
     docker run -e CI=true -t -v /app/node_modules -v $(pwd)/web:/app kwangdock/docker-fibonacci-complex-web-dev npm run test
 
 deploy:
-  provider: script
-  script: bash docker-push.sh
   on:
     branch: main
+  provider: script
+  script: bash docker-push.sh
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-fibonacci-complex"
+  env: "Dockerfibonaccicomplex-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-804508095163"
+  bucket_path: "fibonacci"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

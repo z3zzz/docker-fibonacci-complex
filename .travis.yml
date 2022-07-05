@@ -24,8 +24,8 @@ deploy:
     script: bash docker-push.sh
   - provider: elasticbeanstalk
     region: "ap-northeast-2"
-    app: "docker-fibonacci-complex"
-    env: "Dockerfibonaccicomplex-env"
+    app: "docker-fibonacci-complex2"
+    env: "Dockerfibonaccicomplex2-env"
     bucket_name: "elasticbeanstalk-ap-northeast-2-804508095163"
     bucket_path: "fibonacci"
     access_key_id: $AWS_ACCESS_KEY

@@ -18,11 +18,13 @@ script:
     docker run -e CI=true -t -v /app/node_modules -v $(pwd)/web:/app kwangdock/docker-fibonacci-complex-web-dev npm run test
 
 deploy:
-  on:
-    branch: main
   - provider: script
+    on:
+      branch: main
     script: bash docker-push.sh
   - provider: elasticbeanstalk
+    on:
+      branch: main
     region: "ap-northeast-2"
     app: "docker-fibonacci-complex2"
     env: "Dockerfibonaccicomplex2-env"

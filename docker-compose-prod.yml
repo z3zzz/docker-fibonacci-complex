@@ -33,7 +33,7 @@ services:
       - redis
     build: 
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - 5000
     environment:
@@ -45,13 +45,13 @@ services:
       - redis
     build: 
       context: ./worker
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     environment:
       - REDIS_URL=redis://redis
   web:
     container_name: web
     build: 
       context: ./web
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - 3000

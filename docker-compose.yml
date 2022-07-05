@@ -13,9 +13,13 @@ services:
     image: kwangdock/docker-fibonacci-complex-api
     expose:
       - 5000
+    env_file:
+      - .env
   worker:
     container_name: worker
     image: kwangdock/docker-fibonacci-complex-worker
+    env_file:
+      - .env
   web:
     container_name: web
     image: kwangdock/docker-fibonacci-complex-web

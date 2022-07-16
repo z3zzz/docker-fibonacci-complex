@@ -1,3 +1,7 @@
+## **Workflow**
+![image](https://user-images.githubusercontent.com/91174156/179338979-53125523-ab6e-404b-82c8-f124de8c7664.png)
+
+
 ## **Initial Setup**
 
 1. Go to AWS Management Console

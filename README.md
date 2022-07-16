@@ -1,5 +1,5 @@
 ## **Workflow**
-![image](https://user-images.githubusercontent.com/91174156/179338979-53125523-ab6e-404b-82c8-f124de8c7664.png)
+![image](https://user-images.githubusercontent.com/91174156/179339616-3e709abb-3e3e-4acc-b63b-9234490532b7.png)
 
 
 ## **Initial Setup**

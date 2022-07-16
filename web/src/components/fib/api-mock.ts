@@ -28,11 +28,16 @@ class MockServer {
   private server!: SetupServerApi;
 
   async listen() {
-    this.apiList = await import('./api-mock.json');
+    try {
+      this.apiList = await import('./api-mock.json');
+    } catch (e) {
+      if (e instanceof SyntaxError) {
+        console.error(`Please check syntax of api-mock.json\n${e.message}`);
+      } else {
+        console.error("'api-mock.json' file not found. Api mocking failed");
+      }
 
-    if (!this.apiList) {
-      console.log("'api-mock.json' file not found. Api mocking failed");
-      return;
+      process.exit(1);
     }
 
     const { get, post } = this.apiList;
